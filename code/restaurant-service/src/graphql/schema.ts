@@ -22,13 +22,17 @@ export const typeDefs = gql`
 
     """ Country info """
     type Country {
+        """ Country code """
         countryCode: ID,
+        """ Locales for a country code"""
         locales: [String]
     }
 
     """ Images info """
     type Images {
+        """ Image ID """
         imageID: ID,
+        """ Image URL """
         url: String
     }
 
