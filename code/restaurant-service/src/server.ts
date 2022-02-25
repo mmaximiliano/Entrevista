@@ -79,7 +79,8 @@ const resolvers = {
     Query: {
         getRestaurant: async (_parent: any, args: { name: string; with_image_only: boolean; }, {dataSources}: { dataSources: dataSources }) => {
             let restaurantInfo : [RestaurantInfo];
-            let images : [Image];
+            let images : [Image] = await dataSources.imageAPI.getImages();
+            
             if (args.name) {
                 restaurantInfo = dataSources.restaurantData.getRestaurantDataByName(args.name);
             }
@@ -88,9 +89,6 @@ const resolvers = {
                 restaurantInfo = dataSources.restaurantData.getRestaurantData().filter((r: any) => r.image_uuid)
             }
 
-
-            //dataSources.imageAPI.get('images');
-            //dataSources.restaurantData.getRestaurantData();
             return restaurantInfo;
         }
     }
