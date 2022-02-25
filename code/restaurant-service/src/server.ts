@@ -3,7 +3,7 @@ import express from 'express';
 import config from 'config';
 import ImagesAPI from "./datasources/ImagesAPI";
 import RestaurantData from "./datasources/RestaurantData";
-import {dataSources, RestaurantInfo, Image, RestaurantSimple} from "../@types/types";
+import {dataSources, Image, RestaurantInfo, RestaurantSimple} from "../@types/types";
 
 
 // These types definitions and resolvers are just an example, you can remove them and move the new types and resolvers elsewhere if you want.
@@ -78,9 +78,9 @@ const typeDefs = gql`
 const resolvers = {
     Query: {
         getRestaurant: async (_parent: any, args: { name: string; with_image_only: boolean; }, {dataSources}: { dataSources: dataSources }) => {
-            let restaurantInfo : [RestaurantInfo];
-            let restaurantSimples : [RestaurantSimple];
-            let images : [Image] = await dataSources.imageAPI.getImages();
+            let restaurantInfo: [RestaurantInfo];
+            let restaurantSimples: [RestaurantSimple];
+            let images: [Image] = await dataSources.imageAPI.getImages();
 
             if (args.name) {
                 restaurantSimples = dataSources.restaurantData.getRestaurantDataByName(args.name);
@@ -93,8 +93,12 @@ const resolvers = {
             }
 
             restaurantInfo = restaurantSimples.map((r) => {
-                return {restaurantUuid: r.restaurantID, name: r.name, country: {code:r.country_code, locales: r.locales},
-                    images: images.find((i)=> i.imageID === r.restaurantID), allowReview: !!r.locales.find((l) => l === "fr_FR")
+                return {
+                    restaurantUuid: r.restaurantID,
+                    name: r.name,
+                    country: {code: r.country_code, locales: r.locales},
+                    images: images.find((i) => i.imageID === r.restaurantID),
+                    allowReview: !!r.locales.find((l) => l === "fr_FR")
                 }
             })
 
