@@ -21,10 +21,11 @@ class RestaurantData extends SQLDataSource {
             .cache(MINUTE);
     }
 
-    getRestaurantDataByName( name: string) {
+    getRestaurantDataByName(name: string) {
         return this.knex
             .select("*")
             .from("restaurant")
+            .where({name: name})
             .join("country")
             .leftJoin("restaurant_has_image")
             .cache(MINUTE);

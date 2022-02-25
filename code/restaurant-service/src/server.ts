@@ -3,7 +3,7 @@ import express from 'express';
 import config from 'config';
 import ImagesAPI from "./datasources/ImagesAPI";
 import RestaurantData from "./datasources/RestaurantData";
-import {dataSources} from "../@types/types";
+import {dataSources, RestaurantInfo, Image} from "../@types/types";
 
 
 // These types definitions and resolvers are just an example, you can remove them and move the new types and resolvers elsewhere if you want.
@@ -78,16 +78,17 @@ const typeDefs = gql`
 const resolvers = {
     Query: {
         getRestaurant: async (_parent: any, args: { name: string; with_image_only: boolean; }, {dataSources}: { dataSources: dataSources }) => {
-            let restaurantInfo;
+            let restaurantInfo : [RestaurantInfo];
+            let images : [Image];
             if (args.name) {
                 restaurantInfo = dataSources.restaurantData.getRestaurantDataByName(args.name);
             }
 
             if (args.with_image_only) {
                 restaurantInfo = dataSources.restaurantData.getRestaurantData().filter((r: any) => r.image_uuid)
-            } else {
-
             }
+
+
             //dataSources.imageAPI.get('images');
             //dataSources.restaurantData.getRestaurantData();
             return restaurantInfo;

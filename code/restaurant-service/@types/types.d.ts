@@ -1,33 +1,22 @@
 import ImageAPI from "../src/datasources/ImagesAPI";
 import RestaurantData from "../src/datasources/RestaurantData";
 
-// Apollo types
-/*
-export interface DataSourceConfig<TContext = any> {
-    context: TContext;
-    cache: KeyValueCache;
-}*/
-
-// Project types
-export interface projectAssignment {
-    projectId: number;
-    userId: string;
-    user: user;
-    project: project;
+export interface Country {
+    countryCode: ID;
+    locales: [String];
 }
 
-export interface user {
-    id: string;
+export interface RestaurantInfo {
+    restaurantID: number;
     name: string;
-    email: string;
-    projects: projectAssignment[]
+    country: Country;
+    images: [string];
+    allowReview: boolean;
 }
 
-export interface project {
-    id: number;
-    title: string;
-    status: string;
-    members: projectAssignment[];
+export interface Image {
+    imageID: number;
+    url: string;
 }
 
 export interface dataSources {
