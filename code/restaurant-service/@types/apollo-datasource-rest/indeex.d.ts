@@ -1,6 +1,4 @@
-/// <reference types="node" />
-/*
-declare module 'apollo-datasource-rest'{
+/*declare module 'apollo-datasource-rest'{
     export class RESTDataSource {
         baseURL: string;
         constructor();
