@@ -1,9 +1,8 @@
 import {Image, RestaurantInfo, RestaurantSimple} from "../../@types/types";
 
-
 export const resolvers = {
     Query: {
-        getRestaurant: async (_parent: any, args: { name: string; with_image_only: boolean; }, {dataSources}: { dataSources: dataSources }) => {
+        restaurants: async (_parent: any, args: { name: string; with_image_only: boolean; }, {dataSources}: { dataSources: dataSources }) => {
             let restaurantInfo: [RestaurantInfo];
             let restaurantSimples: [RestaurantSimple];
             let images: [Image] = await dataSources.imageAPI.getImages();
