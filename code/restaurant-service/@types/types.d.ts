@@ -6,6 +6,13 @@ export interface Country {
     locales: [String];
 }
 
+export interface RestaurantSimple {
+    restaurantID: number;
+    name: string;
+    country_code: string;
+    locales: [string];
+}
+
 export interface RestaurantInfo {
     restaurantID: number;
     name: string;
