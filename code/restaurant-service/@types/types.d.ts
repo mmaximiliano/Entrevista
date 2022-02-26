@@ -2,7 +2,7 @@ import ImageAPI from "../src/datasources/ImagesAPI";
 import RestaurantData from "../src/datasources/RestaurantData";
 
 export interface Country {
-    countryCode: ID;
+    code: ID;
     locales: [String];
 }
 
@@ -14,11 +14,11 @@ export interface RestaurantSimple {
 }
 
 export interface RestaurantInfo {
-    restaurantID: number;
+    restaurantUuid: number;
     name: string;
-    country: Country;
-    images: [string];
-    allowReview: boolean;
+    country: { locales: [string]; code: string };
+    images: Image | undefined;
+    allowReview: boolean
 }
 
 export interface Image {
