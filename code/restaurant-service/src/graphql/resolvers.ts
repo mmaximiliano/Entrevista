@@ -1,4 +1,4 @@
-import {Image, RestaurantInfo, RestaurantSimple, DataSources} from "../../@types/types";
+import {Image, RestaurantInfo, RestaurantSimple, DataSources} from "../@types/types";
 
 export const resolvers = {
     Query: {

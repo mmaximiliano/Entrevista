@@ -1,5 +1,5 @@
-import ImageAPI from "../src/datasources/ImagesAPI";
-import RestaurantData from "../src/datasources/RestaurantData";
+import ImageAPI from "../datasources/ImagesAPI";
+import RestaurantData from "../datasources/RestaurantData";
 
 export interface Country {
     code: string;
