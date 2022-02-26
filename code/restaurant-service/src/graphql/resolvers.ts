@@ -2,11 +2,16 @@ import {Image, RestaurantInfo, RestaurantSimple, DataSources} from "../@types/ty
 
 export const resolvers = {
     Query: {
+        images: async (_parent: any, _args: any,
+                       {dataSources}: { dataSources: DataSources }) => {
+            let images: Image[] = await dataSources.imagesAPI.getImages();
+            return images;
+        },
         restaurants: async (_parent: any, args: { name: string; with_image_only: boolean; },
                             {dataSources}: { dataSources: DataSources }) => {
             let restaurantInfo: RestaurantInfo[];
             let restaurantSimples: RestaurantSimple[];
-            let images: Image[] = await dataSources.imageAPI.getImages();
+            let images: Image[] = await dataSources.imagesAPI.getImages();
 
             if (args.name) {
                 restaurantSimples = dataSources.restaurantData.getRestaurantDataByName(args.name);

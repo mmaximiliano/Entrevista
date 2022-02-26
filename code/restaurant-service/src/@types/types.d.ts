@@ -27,6 +27,6 @@ export interface Image {
 }
 
 export interface DataSources {
-    imageAPI: ImageAPI;
+    imagesAPI: ImageAPI;
     restaurantData: RestaurantData;
 }

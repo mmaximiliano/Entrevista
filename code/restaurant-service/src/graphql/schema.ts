@@ -29,7 +29,7 @@ export const typeDefs = gql`
     }
 
     """ Images info """
-    type Images {
+    type Image {
         """ Image ID """
         imageID: ID,
         """ Image URL """
@@ -63,7 +63,7 @@ export const typeDefs = gql`
     }
 
     type Query {
-        getRestaurant(name: String): [Restaurant]
+        images : [Image]
         restaurants(
             """ Restaurant Name """
             name: String,
