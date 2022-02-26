@@ -6,7 +6,7 @@ export const resolvers = {
                             {dataSources}: { dataSources: DataSources }) => {
             let restaurantInfo: RestaurantInfo[];
             let restaurantSimples: RestaurantSimple[];
-            let images: [Image] = await dataSources.imageAPI.getImages();
+            let images: Image[] = await dataSources.imageAPI.getImages();
 
             if (args.name) {
                 restaurantSimples = dataSources.restaurantData.getRestaurantDataByName(args.name);
