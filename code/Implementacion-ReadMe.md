@@ -25,9 +25,9 @@ Sin embargo, cuando corria el comando (`ts-node ./src/server.ts`) desde la termi
 ```
 
 De todas formas decido entregar el ejercicio en el estado actual ya que no voy a poder continuar avanzando en el mismo
-mientras me encuentre de viaje (como lo comente en las entrevistas me voy en unas horas!). Si ustedes lo desean podria 
+mientras me encuentre de viaje (como lo comente en las entrevistas me voy en unas horas!). Si ustedes lo desean, podria 
 seguir trabajando en el ejercicio cuando vuelva (Lunes 7 de marzo) o incluso recibir un ejercicio nuevo.
 Espero su feedback.
 
-Desde ya muchas gracias, 
+Desde ya muchas gracias,
 Maxi.
