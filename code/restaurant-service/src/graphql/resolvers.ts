@@ -1,8 +1,9 @@
-import {Image, RestaurantInfo, RestaurantSimple} from "../../@types/types";
+import {Image, RestaurantInfo, RestaurantSimple, DataSources} from "../../@types/types";
 
 export const resolvers = {
     Query: {
-        restaurants: async (_parent: any, args: { name: string; with_image_only: boolean; }, {dataSources}: { dataSources: dataSources }) => {
+        restaurants: async (_parent: any, args: { name: string; with_image_only: boolean; },
+                            {dataSources}: { dataSources: DataSources }) => {
             let restaurantInfo: RestaurantInfo[];
             let restaurantSimples: RestaurantSimple[];
             let images: [Image] = await dataSources.imageAPI.getImages();
@@ -14,7 +15,7 @@ export const resolvers = {
             }
 
             if (args.with_image_only) {
-                restaurantSimples = dataSources.restaurantData.getRestaurantData().filter((r: any) => r.image_uuid)
+                restaurantSimples = dataSources.restaurantData.getRestaurantData().filter((r: any) => !!r.image_uuid);
             }
 
             restaurantInfo = restaurantSimples.map((r) => {

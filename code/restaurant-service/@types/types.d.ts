@@ -26,7 +26,7 @@ export interface Image {
     url: string;
 }
 
-export interface dataSources {
+export interface DataSources {
     imageAPI: ImageAPI;
     restaurantData: RestaurantData;
 }
