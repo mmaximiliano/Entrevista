@@ -7,14 +7,14 @@ export interface Country {
 }
 
 export interface RestaurantSimple {
-    restaurantID: number;
+    restaurantID: string;
     name: string;
     country_code: string;
     locales: [string];
 }
 
 export interface RestaurantInfo {
-    restaurantUuid: number;
+    restaurantUuid: string;
     name: string;
     country: Country;
     images: Image | undefined;
@@ -22,11 +22,15 @@ export interface RestaurantInfo {
 }
 
 export interface Image {
-    imageID: number;
+    imageUuid: string;
     url: string;
 }
 
 export interface DataSources {
     imagesAPI: ImageAPI;
     restaurantData: RestaurantData;
+}
+
+export interface ImagesResponse {
+    images: [Image]
 }
