@@ -1,4 +1,6 @@
-import { RESTDataSource } from 'apollo-datasource-rest'
+import {RESTDataSource} from 'apollo-datasource-rest'
+import {Image, ImagesResponse} from "../@types/types";
+
 
 class ImagesAPI extends RESTDataSource {
     constructor() {
@@ -6,8 +8,9 @@ class ImagesAPI extends RESTDataSource {
         this.baseURL = 'http://localhost:3010/';
     }
 
-    async getImages() {
-        return this.get(`images`);
+    async getImages(): Promise<Image[]> {
+        let imageResponse: ImagesResponse = await this.get(`images`);
+        return imageResponse.images;
     }
 }
 
