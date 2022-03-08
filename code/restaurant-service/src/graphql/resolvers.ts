@@ -7,6 +7,10 @@ export const resolvers = {
             let images: Image[] = await dataSources.imagesAPI.getImages();
             return images;
         },
+        simpleRestaurants: async (_parent: any, _args: { name: string; with_image_only: boolean; },
+                                  {dataSources}: { dataSources: DataSources }) => {
+            return  dataSources.restaurantData.getRestaurantData();
+        },
         restaurants: async (_parent: any, args: { name: string; with_image_only: boolean; },
                             {dataSources}: { dataSources: DataSources }) => {
             let restaurantInfo: RestaurantInfo[];
@@ -28,7 +32,7 @@ export const resolvers = {
                     restaurantUuid: r.restaurantID,
                     name: r.name,
                     country: {code: r.country_code, locales: r.locales},
-                    images: images.find((i) => i.imageID === r.restaurantID),
+                    images: images.find((i) => i.imageUuid === r.restaurantID),
                     allowReview: !!r.locales.find((l) => l === "fr_FR")
                 }
             })
