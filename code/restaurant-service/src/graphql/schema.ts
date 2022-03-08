@@ -5,7 +5,7 @@ export const typeDefs = gql`
     """ Restaurant basic info """
     type Restaurant {
         """" Restaurant ID """
-        restaurantID: ID,
+        restaurantUuid: String,
         """" Restaurant name """
         name: String,
         """" Restaurant country code """
@@ -15,7 +15,7 @@ export const typeDefs = gql`
     """ Whether Restaurant has image or not """
     type RestaurantHasImage {
         """" Restaurant ID """
-        restaurantID: String,
+        restaurantUuid: String,
         """" Restaurant Image """
         imageID: ID
     }
@@ -31,7 +31,7 @@ export const typeDefs = gql`
     """ Images info """
     type Image {
         """ Image ID """
-        imageID: ID,
+        imageUuid: String,
         """ Image URL """
         url: String
     }
@@ -51,7 +51,7 @@ export const typeDefs = gql`
 
     type RestaurantInfo {
         """" Restaurant ID """
-        restaurantID: ID,
+        restaurantUuid: String,
         """" Restaurant name """
         name: String,
         """" Restaurant country """
@@ -64,6 +64,7 @@ export const typeDefs = gql`
 
     type Query {
         images : [Image]
+        simpleRestaurants: [Restaurant]
         restaurants(
             """ Restaurant Name """
             name: String,
