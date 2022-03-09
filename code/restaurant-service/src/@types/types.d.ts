@@ -3,21 +3,22 @@ import RestaurantData from "../datasources/RestaurantData";
 
 export interface Country {
     code: string;
-    locales: [String];
+    locales: string[];
 }
 
 export interface RestaurantSimple {
-    restaurantID: string;
+    restaurant_uuid: string;
     name: string;
     country_code: string;
     locales: [string];
+    image_uuid: string;
 }
 
 export interface RestaurantInfo {
     restaurantUuid: string;
     name: string;
     country: Country;
-    images: Image | undefined;
+    images: string[] | undefined;
     allowReview: boolean
 }
 
@@ -33,4 +34,15 @@ export interface DataSources {
 
 export interface ImagesResponse {
     images: [Image]
+}
+
+export interface PaginatedCollection {
+    total: Int,
+    pageCount: Int,
+    currentPage: Int
+}
+
+export interface PaginatedRestaurants {
+    restaurants: RestaurantInfo[],
+    pagination: PaginatedCollection
 }
