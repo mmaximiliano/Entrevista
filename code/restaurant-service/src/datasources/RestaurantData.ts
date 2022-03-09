@@ -12,22 +12,92 @@ class RestaurantData extends SQLDataSource {
         super(knexConfig);
     }
 
-    getRestaurantData() {
+    getRestaurantData(limit: number, offset: number) {
         return this.knex
             .select("*")
             .from("restaurant")
-            .join("country")
-            .leftJoin("restaurant_has_image")
+            .join("country", "country.country_code", "restaurant.country_code")
+            .leftJoin("restaurant_has_image", "restaurant_has_image.restaurant_uuid", "restaurant.restaurant_uuid")
+            .count()
+            .offset(offset)
+            .limit(limit)
             .cache(MINUTE);
     }
 
-    getRestaurantDataByName(name: string) {
+    getRestaurantDataTotal() {
+        return this.knex
+            .select("*")
+            .from("restaurant")
+            .join("country", "country.country_code", "restaurant.country_code")
+            .leftJoin("restaurant_has_image", "restaurant_has_image.restaurant_uuid", "restaurant.restaurant_uuid")
+            .count()
+            .cache(MINUTE);
+    }
+
+    getRestaurantDataByName(name: string, limit: number, offset: number) {
         return this.knex
             .select("*")
             .from("restaurant")
             .where({name: name})
-            .join("country")
-            .leftJoin("restaurant_has_image")
+            .join("country", "country.country_code", "restaurant.country_code")
+            .leftJoin("restaurant_has_image", "restaurant_has_image.restaurant_uuid", "restaurant.restaurant_uuid")
+            .offset(offset)
+            .limit(limit)
+            .cache(MINUTE);
+    }
+
+    getRestaurantDataByNameTotal(name: string) {
+        return this.knex
+            .select("*")
+            .from("restaurant")
+            .where({name: name})
+            .join("country", "country.country_code", "restaurant.country_code")
+            .leftJoin("restaurant_has_image", "restaurant_has_image.restaurant_uuid", "restaurant.restaurant_uuid")
+            .count()
+            .cache(MINUTE);
+    }
+
+    getRestaurantDataByNameWithImageOnly(name: string, limit: number, offset: number) {
+        return this.knex
+            .select("*")
+            .from("restaurant")
+            .where({name: name})
+            .join("country", "country.country_code", "restaurant.country_code")
+            .join("restaurant_has_image", "restaurant_has_image.restaurant_uuid", "restaurant.restaurant_uuid")
+            .offset(offset)
+            .limit(limit)
+            .cache(MINUTE);
+    }
+
+    getRestaurantDataByNameWithImageOnlyTotal(name: string) {
+        return this.knex
+            .select("*")
+            .from("restaurant")
+            .where({name: name})
+            .join("country", "country.country_code", "restaurant.country_code")
+            .join("restaurant_has_image", "restaurant_has_image.restaurant_uuid", "restaurant.restaurant_uuid")
+            .count()
+            .cache(MINUTE);
+    }
+
+    getRestaurantDataWithImageOnly(limit: number, offset: number) {
+        return this.knex
+            .select("*")
+            .from("restaurant")
+            .join("country", "country.country_code", "restaurant.country_code")
+            .join("restaurant_has_image", "restaurant_has_image.restaurant_uuid", "restaurant.restaurant_uuid")
+            .offset(offset)
+            .limit(limit)
+            .cache(MINUTE);
+    }
+
+    getRestaurantDataWithImageOnlyTotal() {
+        return this.knex
+            .select("*")
+            .from("restaurant")
+            .join("country", "country.country_code", "restaurant.country_code")
+            .join("restaurant_has_image", "restaurant_has_image.restaurant_uuid", "restaurant.restaurant_uuid")
+            .count()
             .cache(MINUTE);
     }
 }
