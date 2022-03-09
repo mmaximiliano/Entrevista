@@ -2,53 +2,25 @@ import {gql} from 'apollo-server-express';
 
 export const typeDefs = gql`
 
-    """ Restaurant basic info """
-    type Restaurant {
-        """" Restaurant ID """
-        restaurantUuid: String,
-        """" Restaurant name """
-        name: String,
-        """" Restaurant country code """
-        countryCode: String
-    }
-
-    """ Whether Restaurant has image or not """
-    type RestaurantHasImage {
-        """" Restaurant ID """
-        restaurantUuid: String,
-        """" Restaurant Image """
-        imageID: ID
-    }
-
-    """ Country info """
-    type Country {
-        """ Country code """
-        countryCode: ID,
-        """ Locales for a country code"""
-        locales: [String]
-    }
-
-    """ Images info """
-    type Image {
-        """ Image ID """
-        imageUuid: String,
-        """ Image URL """
-        url: String
-    }
-
-    """ Creates the collection type for the Type that has the directive, implementing the PaginatedCollection interface. """
-    directive @collection on FIELD_DEFINITION
-
-    """ Interface that all collection types need to implement to support pagination """
-    interface PaginatedCollection {
+    """ Support for pagination """
+    type PaginatedCollection {
         """ Total number of items available in collection. """
         total: Int!
-        """ Number of pages. """
+        """ Number of items per page. """
         pageCount: Int!
         """ current page returned in query. """
         currentPage: Int!
     }
 
+    """ Country info """
+    type Country {
+        """ Country code """
+        countryCode: String,
+        """ Locales for a country code"""
+        locales: [String]
+    }
+    
+    """ Complete Restaurant Info """
     type RestaurantInfo {
         """" Restaurant ID """
         restaurantUuid: String,
@@ -61,14 +33,22 @@ export const typeDefs = gql`
         """ Does Restaurant allow review """
         allowReview: Boolean
     }
+    
+    """ Complete Restaurant Info With Paginated Results """
+    type PaginatedRestaurants {
+        restaurants: [RestaurantInfo],
+        pagination: PaginatedCollection
+    }
 
     type Query {
-        images : [Image]
-        simpleRestaurants: [Restaurant]
         restaurants(
+            """ Number of Results per Page """
+            pageCount: Int = 5,
+            """ Offset Page """
+            currentPage: Int = 1,
             """ Restaurant Name """
             name: String,
             """ Get only restaurants with images """
-            with_image_only: Boolean = True): [RestaurantInfo]
+            with_image_only: Boolean = False): PaginatedRestaurants
     }
 `;
