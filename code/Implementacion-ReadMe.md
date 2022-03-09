@@ -1,22 +1,25 @@
 # Improvements a considerar
 
 * **Tests**: Este es el punto mas fuerte faltante en la implementacion, definitivamente habria que considerar agregar 
-  tests de todo tipo (unit test, component test, integration test).
-* **Resolver chains**: Actualmente no se utiliza esta potente funcionalidad de Graphql, una mejora seria reimplementar 
-  el resolver de la query `restaurants` para que utilice esta capacidad. Esta brindaria mejoras en terminos de latencia 
-  y en la cantidad de endpoint que se utilizan, ya que solo se buscaria cierto campo si el usuario lo solicita.
+  tests de todo tipo (unit test, integration test, end-to-end test).
+* **Resolver chains**: Actualmente no se utiliza esta potente funcionalidad de Graphql. En esta direccion una mejora 
+  seria re-implementar el resolver de la query `restaurants` para que utilice esta capacidad. Esta brindaria mejoras
+  en terminos de latencia y en la cantidad de endpoint que se utilizan, ya que solo se buscaria cierto campo si el 
+  usuario lo solicita, ahorrando asi tiempo.
 * **Error Handling**: No hay handlers de errores implementados, lo cual seria muy util para darle un error comprensible
   al usuario en vez de que se crashee la aplicacion con algun *'undefined behaviour'*
 * **Caching**: En el caso de que los datos comiencen a escalar, estaria bueno utilizar algun tipo de cache provisto por
   graphql para guardar algunos datos de la query que sean pesados; la misma puede refhesearse cada X cantidad de tiempo
+  en base a algun conocimiento previo sobre cuan frecuente se actualiza la DB
 * **Auth**: Este es otro punto fuerte a considerar si queremos restringir el acceso a los datos. Graphql tambien provee 
   esta capacidad integrada.
 * **Monitoring**: Graphql tambien provee la posibilidad de obtener metricas. 
-  Este es posiblemente uno de los improvements que mas insight nos brinde y mas nos ayude a mejorar
-  nuestra API. Por ejemplo, haciendo uso del logging obtendriamos metricas acerca de cuales son las queries que mas se
-  utilizan, cuanto demoran (podriamos identificar posibles cuellos de botella), en que horario se realizan las queries:
-  esto nos podria ayudar a escalar determinado servicio en una modalidad *'on-demand'* para los horarios que es mas
-  utilizado. Entre otros casos de usos.
+  Este es posiblemente uno de los improvements que mas insight nos brindaria y mas nos ayude a mejorar nuestra API. 
+  Por ejemplo, haciendo uso del logging obtendriamos metricas acerca de cuales son las queries que mas se
+  utilizan, cuanto demoran (podriamos identificar posibles cuellos de botella), en que horario se realizan la mayor
+  cantidad de queries, etc. Esta informacion nos podria ayudar por ejemplo a reducir costos la utilizacion de recursos,
+  ya que por ejemplo esto nos podria ayudar a escalar determinado servicio en una modalidad *'on-demand'* para los
+  horarios que es mas utilizado, para luego reducir a su estado original. Entre otros casos de usos.
 
   
 \
@@ -26,7 +29,7 @@ Esta vez tuve un poco mas de tiempo para debuggear el codigo, y esto es lo que c
 \
 Cuando se realiza `docker-compose up` el servicio `init-restaurant-service` inicializa la DB y ademas monta el codigo y
 las dependencias, las cuales no se estan montando debido a un error en la inicializacion de la DB, entonces despues el
-build no encuentra las dependencias
+build no encuentra las dependencias y aparentemente por este motivo estaria fallando.
 
 
 Transcribo el error a continuacion:
