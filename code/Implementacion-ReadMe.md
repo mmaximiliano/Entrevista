@@ -1,16 +1,35 @@
-Buenas, espero que se encuentren bien!
+# Improvements a considerar
 
-Utilizo este txt para contar rapidamente acerca de la implementacion.
+* **Tests**: Este es el punto mas fuerte faltante en la implementacion, definitivamente habria que considerar agregar 
+  tests de todo tipo (unit test, component test, integration test).
+* **Resolver chains**: Actualmente no se utiliza esta potente funcionalidad de Graphql, una mejora seria reimplementar 
+  el resolver de la query `restaurants` para que utilice esta capacidad. Esta brindaria mejoras en terminos de latencia 
+  y en la cantidad de endpoint que se utilizan, ya que solo se buscaria cierto campo si el usuario lo solicita.
+* **Error Handling**: No hay handlers de errores implementados, lo cual seria muy util para darle un error comprensible
+  al usuario en vez de que se crashee la aplicacion con algun *'undefined behaviour'*
+* **Caching**: En el caso de que los datos comiencen a escalar, estaria bueno utilizar algun tipo de cache provisto por
+  graphql para guardar algunos datos de la query que sean pesados; la misma puede refhesearse cada X cantidad de tiempo
+* **Auth**: Este es otro punto fuerte a considerar si queremos restringir el acceso a los datos. Graphql tambien provee 
+  esta capacidad integrada.
+* **Monitoring**: Graphql tambien provee la posibilidad de obtener metricas. 
+  Este es posiblemente uno de los improvements que mas insight nos brinde y mas nos ayude a mejorar
+  nuestra API. Por ejemplo, haciendo uso del logging obtendriamos metricas acerca de cuales son las queries que mas se
+  utilizan, cuanto demoran (podriamos identificar posibles cuellos de botella), en que horario se realizan las queries:
+  esto nos podria ayudar a escalar determinado servicio en una modalidad *'on-demand'* para los horarios que es mas
+  utilizado. Entre otros casos de usos.
 
-Lamentablemente en el poco tiempo que tuve (a horas de viajar y lo que eso implica) no fui capaz de cumplir con la
-funcionalidad que se pedia en el ejercicio.
-Mi mayor enemigo fue error de tipado que no fui capaz de debuggear (lo describo mas abajo) y el mismo no me permitio
-testear en "vivo" la implementacion a medida que avanzaba. Luego de tratar de resolverlo por horas, decidi utilizar el 
-tiempo para seguir adelante sin testear y confiar en el tipado de typescript, motivo por el cual probablemente hayan
-cosas que no funcionen ya que no las pude testear.
+  
+\
+Al igual que la vez pasada me encontre con el mismo error al utilizar `docker-compose up` lo cual no me permitio
+testear el servicio en su totalidad. Sin embargo, si corro las cosas por separado no hay ningun error de compilacion.
+Esta vez tuve un poco mas de tiempo para debuggear el codigo, y esto es lo que creo que esta sucediendo:
+\
+Cuando se realiza `docker-compose up` el servicio `init-restaurant-service` inicializa la DB y ademas monta el codigo y
+las dependencias, las cuales no se estan montando debido a un error en la inicializacion de la DB, entonces despues el
+build no encuentra las dependencias
 
-Por algun motivo, cuando intentaba correr el docker-compose.yaml obtenia el siguiente error que no fui capaz de resolver.
-Sin embargo, cuando corria el comando (`ts-node ./src/server.ts`) desde la terminal, el mismo si funciona
+
+Transcribo el error a continuacion:
 
 ```
 [nodemon] starting `ts-node ./src/server.ts`
@@ -24,10 +43,7 @@ Sin embargo, cuando corria el comando (`ts-node ./src/server.ts`) desde la termi
 2022-02-26T04:19:58.663384800Z src/datasources/ImagesAPI.ts(10,21): error TS2339: Property 'get' does not exist on type 'ImagesAPI'.
 ```
 
-De todas formas decido entregar el ejercicio en el estado actual ya que no voy a poder continuar avanzando en el mismo
-mientras me encuentre de viaje (como lo comente en las entrevistas me voy en unas horas!). Si ustedes lo desean, podria 
-seguir trabajando en el ejercicio cuando vuelva (Lunes 7 de marzo) o incluso recibir un ejercicio nuevo.
 Espero su feedback.
 
-Desde ya muchas gracias,
+Desde ya muchas gracias, \
 Maxi.
