@@ -1,6 +1,6 @@
 # Improvements a considerar
 
-* **Tests**: Este es el punto mas fuerte faltante en la implementacion, definitivamente habria que considerar agregar 
+* **Tests**: Este es el punto mas fuerte que falta en la implementacion, definitivamente habria que considerar agregar 
   tests de todo tipo (unit test, integration test, end-to-end test).
 * **Resolver chains**: Actualmente no se utiliza esta potente funcionalidad de Graphql. En esta direccion una mejora 
   seria re-implementar el resolver de la query `restaurants` para que utilice esta capacidad. Esta brindaria mejoras
@@ -9,7 +9,7 @@
 * **Error Handling**: No hay handlers de errores implementados, lo cual seria muy util para darle un error comprensible
   al usuario en vez de que se crashee la aplicacion con algun *'undefined behaviour'*
 * **Caching**: En el caso de que los datos comiencen a escalar, estaria bueno utilizar algun tipo de cache provisto por
-  graphql para guardar algunos datos de la query que sean pesados; la misma puede refhesearse cada X cantidad de tiempo
+  graphql para guardar algunos datos de la query que sean pesados; la misma puede actualizarce cada X cantidad de tiempo
   en base a algun conocimiento previo sobre cuan frecuente se actualiza la DB
 * **Auth**: Este es otro punto fuerte a considerar si queremos restringir el acceso a los datos. Graphql tambien provee 
   esta capacidad integrada.
@@ -17,7 +17,7 @@
   Este es posiblemente uno de los improvements que mas insight nos brindaria y mas nos ayude a mejorar nuestra API. 
   Por ejemplo, haciendo uso del logging obtendriamos metricas acerca de cuales son las queries que mas se
   utilizan, cuanto demoran (podriamos identificar posibles cuellos de botella), en que horario se realizan la mayor
-  cantidad de queries, etc. Esta informacion nos podria ayudar por ejemplo a reducir costos la utilizacion de recursos,
+  cantidad de queries, etc. Esta informacion nos podria ayudar por ejemplo a reducir costos en la utilizacion de recursos,
   ya que por ejemplo esto nos podria ayudar a escalar determinado servicio en una modalidad *'on-demand'* para los
   horarios que es mas utilizado, para luego reducir a su estado original. Entre otros casos de usos.
 
